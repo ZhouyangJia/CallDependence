@@ -456,9 +456,9 @@ struct AllCallDependencePass : public FunctionPass{
                 
                 // FIXME getCallDependence fails when 'bitcast' occurs, what happened:(
                 // Get call dependence
-                //if(getCallDependence(call, inst)){
-                    //writeDepOnPara(call);
-                //}
+                if(getCallDependence(call, inst)){
+                    writeDepOnPara(call);
+                }
             }
         }
         return false;

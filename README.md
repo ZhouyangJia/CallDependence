@@ -21,14 +21,14 @@ This project is supposed to analyze data dependence of call expression, e.g., in
 - Generate *compile_commands.json*. More information about [compile_commands.json](http://clang.llvm.org/docs/JSONCompilationDatabase.html).
 ```sh
 cd test/
-tar zxvf bftpd-3.8.tar.gz
+tar zxvf bftpd-3.2.tar
 cd bftpd/
 ./configure
 bear make
 ```
 - Generate *build_ir.sh*, This file is used to build LLVM IR for each file.
 ```sh
-extract_command.pl compile_commands.json
+../../script/extract_command.pl compile_commands.json
 ```
 - Build LLVM IR.
 ```sh
@@ -36,10 +36,9 @@ extract_command.pl compile_commands.json
 ```
 - Get analysis result.
 ```sh
-./all_call_dependence.sh
+../../script/all_call_dependence.sh
 ```
 The result is written in call_dependence.cvs, and represented as a 7-tuples:
-
 
 < file_name, caller_name, callee_name, call_line, inst_line, arg_id, dep_type >, where:
 
