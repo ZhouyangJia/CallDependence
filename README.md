@@ -4,7 +4,7 @@ Analyze data dependence of call expression.
 ---
 
 ### Introduction
-This project is suppposed to ananlyze data dependence of call expression, e.g., input, flow, anti and output dependence. Existing date-dependence analysis pass in LLVM is hard to analyze the dependence between variable (e.g., *a*) and call expression (e.g., *foo(b)*). To help this situation, *CallDependence* converts the dependence between call and variables to dependence between arguments (of the call, e.g., *b*) and varible, and then infer the call dependence.
+This project is suppposed to ananlyze data dependence of call expression, e.g., input, flow, anti and output dependence. Existing date-dependence analysis pass in LLVM is hard to analyze the dependence between call expression (e.g., *foo(a)*) and variables (e.g., *b*) . To help this situation, *CallDependence* converts the dependence between call and variables to dependence between arguments (of the call, e.g., *a*) and varible, and then infers the call dependence.
 
 ### Usage
 
