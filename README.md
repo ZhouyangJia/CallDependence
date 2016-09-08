@@ -4,7 +4,7 @@ Analyze data dependence of call expression.
 ---
 
 ### Introduction
-This project is suppposed to ananlyze data dependence of call expression, e.g., input, flow, anti and output dependence.
+This project is suppposed to ananlyze data dependence of call expression, e.g., input, flow, anti and output dependence. Existing date-dependence analysis pass in LLVM is hard to analyze the dependence between variable (e.g., *a*) and call expression (e.g., *foo(b)*). To help this situation, *CallDependence* converts the dependence between call and variables to arguments (of the call, e.g., *b*) to varible, and infer the call dependence.
 
 ### Usage
 
@@ -37,12 +37,8 @@ The result is written in call_dependence.cvs, and represented as a 7-trupls:
 
 < file_name, caller_name, callee_name, call_line, inst_line, arg_id, dep_type >, where:
 
-*file_name* is the file where the dep. locates.
-
-*caller_name* and *callee_name* are the names of caller and callee function, repectively.
-
-*call_line* and *inst_line* are the line numbers of call and inst, repectively.
-
-*arg_id* means the index of argument which makes the dependence happends. 0 means return value, whereas 1,2,... indicate arguments.
-
-*dep_type* has 4 types: flow, anti, output, input.
+* **file_name** is the file where the dep. locates.
+* **caller_name** and **callee_name** are the names of caller and callee function, repectively.
+* **call_line** and **inst_line** are the line numbers of call and inst, repectively.
+* **arg_id** means the index of argument which makes the dependence happends. 0 means return value, whereas 1,2,... indicate arguments.
+* **dep_type** has 4 types: flow, anti, output, input.
