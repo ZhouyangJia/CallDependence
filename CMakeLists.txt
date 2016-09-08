@@ -11,7 +11,7 @@ if(WIN32 OR CYGWIN)
 endif()
 
 add_llvm_loadable_module( LLVMCallDependence
-  CallDependence.cpp
+  src/CallDependence.cpp
 
   DEPENDS
   intrinsics_gen
