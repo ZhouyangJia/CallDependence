@@ -6,6 +6,7 @@ Analyze data dependence of call expression.
 ### Introduction
 This project is supposed to analyze data dependence of call expression, e.g., input, flow, anti and output dependence. Existing date-dependence analysis pass in LLVM is hard to analyze the dependence between call expression (e.g., *foo(a)*) and variables (e.g., *b*) . To help this situation, *CallDependence* converts the dependence between call and variables to dependence between arguments (of the call, e.g., *a*) and variable, and then infers the call dependence.
 
+
 ### Usage
 
 ##### Compile
@@ -14,6 +15,7 @@ This project is supposed to analyze data dependence of call expression, e.g., in
 - Extract source code to above new fold.
 - Add *add_subdirectory(CallDependence)* in CMakeList.txt in LLVM lib transform directory.
 - Compile LLVM, and you will get LLVMCallDependence.dylib (or .so) in lib path.
+
 
 ##### Analyze log information
 - Generate *compile_commands.json*. More information about [compile_commands.json](http://clang.llvm.org/docs/JSONCompilationDatabase.html).
@@ -34,6 +36,7 @@ extract_command.pl compile_commands.json
 ./all_call_dependence.sh
 ```
 The result is written in call_dependence.cvs, and represented as a 7-tuples:
+
 
 < file_name, caller_name, callee_name, call_line, inst_line, arg_id, dep_type >, where:
 
