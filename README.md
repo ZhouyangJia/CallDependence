@@ -11,8 +11,8 @@ This project is supposed to analyze data dependence of call expression, e.g., in
 
 ##### Compile
 - Download the source code.
-- Make new fold *CallDependence* in LLVM lib transform directory, e.g., llvm-3.8/lib/Transforms/CallDependence.
-- Extract source code to above new fold.
+- Create new folder *CallDependence* in LLVM lib transform directory, e.g., llvm-3.8/lib/Transforms/CallDependence.
+- Extract source code to above new folder.
 - Add *add_subdirectory(CallDependence)* in CMakeList.txt in LLVM lib transform directory.
 - Compile LLVM, and you will get LLVMCallDependence.dylib (or .so) in lib path.
 
