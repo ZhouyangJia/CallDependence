@@ -15,7 +15,7 @@
 //     file_nmae is the file where the dep. locates.
 //     caller_name and callee_name are the names of caller and callee function, repectively.
 //     call_line and inst_line are the line numbers of call and inst, repectively.
-//     arg_id means the index of argument which makes the dependence happends.
+//     arg_id means the index of argument which makes the dependence happens.
 //       0 means return value, whereas 1,2,... indicate arguments.
 //     dep_type has 4 types: flow, anti, output, input.
 //

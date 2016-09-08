@@ -1,41 +1,44 @@
-# clang-smartlog
-A Semantic-Aware Log Automation Tool for Failure Diagnosis
+# CallDependence
+Analyze data dependence of call expression.
+
+---
 
 ### Introduction
-*LogGrad* is a light weight log-quality assessment tool, which is based on Clang.
-Given a set of projects, *LogGrad* can automatically rank them by log quality.
-The basic idea of ranking is that to what extent the given project misses logs.
-The missing logs are classified into 3 types, including project-specific logs, intra-domain important logs and inter-domain important logs.
+This project is supposed to analyze data dependence of call expression, e.g., input, flow, anti and output dependence. Existing date-dependence analysis pass in LLVM is hard to analyze the dependence between call expression (e.g., *foo(a)*) and variables (e.g., *b*) . To help this situation, *CallDependence* converts the dependence between call and variables to dependence between arguments (of the call, e.g., *a*) and variable, and then infers the call dependence.
 
 ### Usage
 
 ##### Compile
 - Download the source code.
-- Make new fold *clang-loggrad* in Clang tools directory, e.g., /home/guest/llvm-3.8/tools/clang/tools/clang-loggrad.
+- Make new fold *CallDependence* in LLVM lib transform directory, e.g., llvm-3.8/lib/Transforms/CallDependence.
 - Extract source code to above new fold.
-- Add *add_clang_subdirectory(clang-loggrad)* in CMakeList.txt in Clang tools directory.
-- Compile Clang.
+- Add *add_subdirectory(CallDependence)* in CMakeList.txt in LLVM lib transform directory.
+- Compile LLVM, and you will get LLVMCallDependence.dylib (or .so) in lib path.
 
 ##### Analyze log information
-- Generate *compile_commands.json*. More infomation about [compile_commands.json](http://clang.llvm.org/docs/JSONCompilationDatabase.html).
+- Generate *compile_commands.json*. More information about [compile_commands.json](http://clang.llvm.org/docs/JSONCompilationDatabase.html).
 ```sh
 ./configure
 bear make
 ```
-- Generate *compiled_files.def*, This file has all names of compiled source files.
+- Generate *build_ir.sh*, This file is used to build LLVM IR for each file.
 ```sh
 extract_command.pl compile_commands.json
 ```
-- Generate *function_rule_model.out*. Each line includes a 3-tuple, namely function name, called time and logged time.
+- Build LLVM IR.
 ```sh
-cat compiled_files.def | xargs clang-loggrad -log-grade
+./build_ir.sh
 ```
-- Remane the output file. Other output files are in script/results.
+- Get analysis result.
 ```sh
-mv function_rule_model.out bftpd.out
+./all_call_dependence.sh
 ```
-##### Assessment
-Each output file represents one project followed by a domain name.
-```sh
-python loggrad.py results/httpd.out httpd results/nginx.out httpd results/lighttpd.out httpd results/mongrel2.out httpd results/mysql.out database results/postgresql.out database results/berkeleydb.out database results/monetdb.out database
-```
+The result is written in call_dependence.cvs, and represented as a 7-tuples:
+
+< file_name, caller_name, callee_name, call_line, inst_line, arg_id, dep_type >, where:
+
+* **file_name** is the file where the dep. locates.
+* **caller_name** and **callee_name** are the names of caller and callee function, repectively.
+* **call_line** and **inst_line** are the line numbers of call and inst, respectively.
+* **arg_id** means the index of argument which makes the dependence happens. 0 means return value, whereas 1,2,... indicate arguments.
+* **dep_type** has 4 types: flow, anti, output, input.
