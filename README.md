@@ -10,12 +10,22 @@ This project is supposed to analyze data dependence of call expression, e.g., in
 ### Usage
 
 ##### Compile
-- Download the source code.
-- Create new folder *CallDependence* in LLVM lib transform directory, e.g., llvm-3.8/lib/Transforms/CallDependence.
-- Extract source code to above new folder.
-- Add *add_subdirectory(CallDependence)* in CMakeList.txt in LLVM lib transform directory.
-- Compile LLVM, and you will get LLVMCallDependence.dylib (or .so) in lib path.
-
+- Change directory to LLVM lib transform directory.
+```sh
+cd path/to/llvm-source-tree/lib/Transforms
+```
+- Download source code.
+```sh
+git clone https://github.com/ZhouyangJia/CallDependence.git
+```
+- Add *add_subdirectory(CallDependence)* to CMakeList.txt.
+```sh
+echo "add_subdirectory(CallDependence)" >> CMakeLists.txt
+```
+- [Recompile LLVM](http://llvm.org/docs/CMake.html) and try following command to test.
+```sh
+ls path/to/llvm-build/Release/lib/*CallDependence*
+```
 
 ##### Analyze log information
 - Generate *compile_commands.json*. More information about [compile_commands.json](http://clang.llvm.org/docs/JSONCompilationDatabase.html).
